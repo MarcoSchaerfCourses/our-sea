@@ -2,8 +2,9 @@
 
 
 
-			var camera, scene, renderer,pointLight,hemiLight,clock;
+			var camera, scene, renderer,pointLight,hemiLight,clock,zAxis;
 			var fish;
+			var fin;
 			var cube;
 			var food=[];
 			var velocity=1;
@@ -19,6 +20,6 @@
 				animate();
 
 				//setInterval(requestAnimationFrame(animation),16);
-				//setInterval(check_food,5);
+				//setInterval(check_food,200);
 
 				//setInterval(requestAnimationFrame(animate),30);

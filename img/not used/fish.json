@@ -6,7 +6,7 @@
 	},
 	"geometries": [
 		{
-			"uuid": "E5EC2AF3-777D-4579-A9C9-F23E8ACB5C82",
+			"uuid": "99F6E281-C743-4639-B881-5864D3F03134",
 			"type": "BufferGeometry",
 			"data": {
 				"attributes": {
@@ -37,7 +37,7 @@
 		}],
 	"materials": [
 		{
-			"uuid": "04E922F2-EAD2-4E8B-B769-E9E555A89744",
+			"uuid": "894DEB3B-0F74-448A-85C6-1BF2FBD22505",
 			"type": "MeshPhongMaterial",
 			"name": "Material_007",
 			"color": 13369600,
@@ -49,12 +49,12 @@
 			"depthWrite": true
 		}],
 	"object": {
-		"uuid": "CDF8236C-12A6-4D47-9F25-64FB55C1D216",
+		"uuid": "F3C4CE9F-3576-4A08-9B50-A2341098CB34",
 		"type": "Mesh",
 		"name": "Sphere_002",
 		"layers": 1,
-		"matrix": [0.001179,-0.035363,0.207415,0,0.004801,0.262452,0.04472,0,-0.497927,0.008383,0.00426,0,-4.228301,1.881473,2.213182,1],
-		"geometry": "E5EC2AF3-777D-4579-A9C9-F23E8ACB5C82",
-		"material": "04E922F2-EAD2-4E8B-B769-E9E555A89744"
+		"matrix": [0.007755,0.016723,0.209602,0,-0.003774,0.265419,-0.021037,0,-0.497627,-0.005581,0.018857,0,-0.166824,1.137638,1.860633,1],
+		"geometry": "99F6E281-C743-4639-B881-5864D3F03134",
+		"material": "894DEB3B-0F74-448A-85C6-1BF2FBD22505"
 	}
 }

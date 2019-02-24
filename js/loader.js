@@ -149,18 +149,29 @@ function load_fish(){
 
   loader.load(
 	// resource URL
-	"img/fish.json",
+	"img/fish0.2.json",
 
 	// onLoad callback
 	// Here the loaded data is assumed to be an object
 	function ( obj ) {
 		// Add the loaded object to the scene
     fish=obj;
-		scene.add( obj );
+
+		scene.add( fish );
+
+
+    fish.rotation.set(0,0,0);
+    fish.scale.multiplyScalar(4.0);
     fish.position.set(0,0,10);
-    fish.scale.multiplyScalar(2.0);
+    //fish.rotation.set(0,0,0);
+    //fish.rotation.set(0,0,0);
+    //console.log(fish.rotation);
     fish.castShadow=true;
-    console.log(obj.position);
+    //console.log(obj.position);
+    zAxis = new THREE.Vector3(0,0,1);
+    xAxis = new THREE.Vector3(1,0,0);
+    yAxis = new THREE.Vector3(1,0,0);
+//rotateAroundWorldAxis(fish, zAxis, Math.PI / 180);
     animate();
 	},
 
@@ -174,6 +185,42 @@ function load_fish(){
 		console.error( 'An error happened' );
 	}
 );
+/*loader.load(
+	// resource URL
+	"img/fin.json",
+
+	// onLoad callback
+	// Here the loaded data is assumed to be an object
+	function ( obj ) {
+		// Add the loaded object to the scen
+    fin=obj;
+    fin.position.set(fish.position.x,fish.position.y,fish.position.z);
+    //fin.scale.multiplyScalar(4.0);
+    fin.castShadow=true;
+		fish.add( fin );
+    /*fin.rotation.y=0.109;
+    fin.rotation.x=-1.0378443964682147;
+    fin.rotation.z=1.4;
+    fin.position.y=-2.49;
+    fin.position.x=-1.11;
+    fin.position.z=-3.78;
+    fish.position.set(0,0,10);
+
+	},
+
+	// onProgress callback
+	function ( xhr ) {
+		console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+	},
+
+	// onError callback
+	function ( err ) {
+		console.error( 'An error happened' );
+	}
+);*/
+
+
+//load fin
 
 
 // Alternatively, to parse a previously loaded JSON structure
@@ -182,4 +229,35 @@ function load_fish(){
 //scene.add( object );
 
 
+}
+
+
+var rotObjectMatrix;
+function rotateAroundObjectAxis(object, axis, radians) {
+    rotObjectMatrix = new THREE.Matrix4();
+    rotObjectMatrix.makeRotationAxis(axis.normalize(), radians);
+
+    object.matrix.multiply(rotObjectMatrix);
+
+    object.rotation.setFromRotationMatrix(object.matrix);
+}
+var rotWorldMatrix;
+// Rotate an object around an arbitrary axis in world space
+function rotateAroundWorldAxis(object, axis, radians) {
+    rotWorldMatrix = new THREE.Matrix4();
+    rotWorldMatrix.makeRotationAxis(axis.normalize(), radians);
+
+    // old code for Three.JS pre r54:
+    //  rotWorldMatrix.multiply(object.matrix);
+    // new code for Three.JS r55+:
+    rotWorldMatrix.multiply(object.matrix);                // pre-multiply
+
+    object.matrix = rotWorldMatrix;
+
+    // old code for Three.js pre r49:
+    // object.rotation.getRotationFromMatrix(object.matrix, object.scale);
+    // old code for Three.js pre r59:
+    // object.rotation.setEulerFromRotationMatrix(object.matrix);
+    // code for r59+:
+    object.rotation.setFromRotationMatrix(object.matrix);
 }
