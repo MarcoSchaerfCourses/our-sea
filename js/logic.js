@@ -36,6 +36,7 @@ function check_food(){
   //for(var i=0;i<food.length;i++){
     //create_food();
     food_part=food[0];
+
     eat(fish,food[0]);
 
 
@@ -58,7 +59,8 @@ function eat(fish,food_p){
 
 
     ){
-      console.log(food_p.position);
+      //
+      //console.log(food_p.position);
       //console.log(fish.threegroup.position);
         //animate();
         //var x,y,z=0;
@@ -111,7 +113,7 @@ function calculate_rotation(p1,p2){
 
 function onDocumentMouseClick(event) {
           //event.preventDefault();
-          console.log("click")
+          //console.log("click")
           var mouses = { x : 0, y : 0 };
           //mouses.x = ( ( event.clientX - renderer.domElement.offsetLeft ) / window.innerWidth ) * 2 - 1;
           //mouses.y = - ( ( event.clientY - renderer.domElement.offsetTop ) / window.innerHeight ) * 2 + 1;
@@ -147,5 +149,21 @@ function onDocumentMouseClick(event) {
           scene.add(m);
 
           render();
+
+      }
+
+
+
+      function clamp(v,min, max){
+        return Math.min(Math.max(v, min), max);
+      }
+
+      function rule3(v,vmin,vmax,tmin, tmax){
+        var nv = Math.max(Math.min(v,vmax), vmin);
+        var dv = vmax-vmin;
+        var pc = (nv-vmin)/dv;
+        var dt = tmax-tmin;
+        var tv = tmin + (pc*dt);
+        return tv;
 
       }

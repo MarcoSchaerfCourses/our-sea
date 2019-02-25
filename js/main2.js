@@ -16,7 +16,7 @@ var scene,
 
     var food=[];
     var velocity=1;
-    var step=5;
+    var step=10;
 
 //SCENE
 var floor, lion, fan, fish,
@@ -33,9 +33,10 @@ var HEIGHT,
 
 
 
-    var geometry_food=new THREE.BoxBufferGeometry( 5, 5, 5 );
-    mesh_food = new THREE.Mesh( geometry_food, material_food );
-    var material_food = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+var geometry_food=new THREE.BoxBufferGeometry( 5, 5, 5 );
+
+var material_food = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+var mesh_food = new THREE.Mesh( geometry_food, material_food );
 //INIT THREE JS, SCREEN AND MOUSE EVENTS
 
 function init(){
@@ -53,14 +54,18 @@ function init(){
     farPlane);
 
   //camera.lookAt(new THREE.Vector3(0,0,0));
-  renderer = new THREE.WebGLRenderer({alpha: true, antialias: true });
+  renderer = new THREE.WebGLRenderer({alpha: true,
+    antialias: true
+   });
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize(WIDTH, HEIGHT);
   renderer.shadowMap.enabled = true;
 
 
-  container = document.body;
-  container.appendChild(renderer.domElement);
+  document.body.appendChild( renderer.domElement );
+
+  //container = document.body;
+  //container.appendChild(renderer.domElement);
   windowHalfX = WIDTH / 2;
   windowHalfY = HEIGHT / 2;
   window.addEventListener('resize', onWindowResize, false);
@@ -242,7 +247,7 @@ Fish= function(){
   this.bodyInitPositions = [];
   this.maneParts = [];
   this.threegroup = new THREE.Group();
-  this.watching= new THREE.Vector3(0,-1,0);
+  this.watching= new THREE.Vector3(-1,0,0);
   this.redMat = new THREE.MeshLambertMaterial ({
     color: 0xad3525,
     flatShading: true
@@ -830,10 +835,11 @@ Fish= function(){
 }
 
 Fish.prototype.look=function(food_part){
-    var p1=this.threegroup.position;
+    var p1=this.watching;
     var p2=food_part.position;
     var angle= calculate_rotation(p1,p2);
-    this.threegroup.rotation.z+=angle;
+    this.threegroup.rotation.z+=angle/2;
+    this.watching=food_part.position;
 
 }
 
@@ -1303,14 +1309,10 @@ function loop(){
   var xTarget = (mousePos.x-windowHalfX);
   var yTarget= (mousePos.y-windowHalfY);
 
-  /*fan.isBlowing = isBlowing;
-  fan.update(xTarget, yTarget);
-  if(isBlowing) {
-    lion.cool(xTarget, yTarget);
-  }else{
-    lion.look(xTarget, yTarget);
-  }*/
+  //fish.look(food_part);
   check_food();
+
+
   requestAnimationFrame(loop);
 }
 
@@ -1327,18 +1329,3 @@ createFloor();
 //createFan();
 createFish();
 loop();
-
-
-function clamp(v,min, max){
-  return Math.min(Math.max(v, min), max);
-}
-
-function rule3(v,vmin,vmax,tmin, tmax){
-  var nv = Math.max(Math.min(v,vmax), vmin);
-  var dv = vmax-vmin;
-  var pc = (nv-vmin)/dv;
-  var dt = tmax-tmin;
-  var tv = tmin + (pc*dt);
-  return tv;
-
-}
