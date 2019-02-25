@@ -30,6 +30,8 @@ var fish,
     bodyFish,
     tailFish,
     topFish,
+    topFish2,
+    spot1,
     rightIris,
     leftIris,
     rightEye,
@@ -43,15 +45,17 @@ var fish,
 
 // FISH SPEED
 // the colors are splitted into rgb values to facilitate the transition of the color
-var fishFastColor = {r:255, g:0, b:224}; // pastel blue
-		fishSlowColor = {r:0, g:207, b:255}; // purple
+var
+    //fishFastColor = {r:90, g:63, b:63}; // pastel blue
+		//fishSlowColor = {r:0, g:192, b:213}; // purple
     angleFin = 0; // angle used to move the fishtail
+    fishTypes=["normal","piranha","textured","nemo"]
 
 // PARTICLES COLORS
 // array used to store a color scheme to randomly tint the particles
 var colors = ['#dff69e',
               '#00ceff',
-              '#002bca',
+              '#008b1b',
               '#ff00e0',
               '#3f159f',
               '#71b583',
@@ -73,14 +77,15 @@ var smoothing = 10;
 var mousePos = {x:0, y:0};
 var stats;
 var halfPI = Math.PI/2;
+var minPollution=0;
+var maxPollution=200;
 var params={
-  fishType: 0,
+  fishType: "nemo",
   refresh: false,
   debug: false,
   waterPollution: 70,
   polluted:false,
   plastic: false,
-  //dirt: false,
   chemical: false,
 
 
@@ -99,10 +104,6 @@ createFish();
 createGUI();
 createParticle();
 loop();
-var counter=10;
-var myFunction = function() {
-    counter *= 10;
-    setTimeout(myFunction, counter);
-}
+
 setTimeout(flyParticle, params.waterPollution)
 //setInterval(flyParticle, 10); // launch a new particle every 70ms

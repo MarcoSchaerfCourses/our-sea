@@ -44,6 +44,25 @@ function loop() {
   // To make a smooth update of each value I use this formula :
   // currentValue += (targetValue - currentValue) / smoothing
 
+  //SpeedPurity depends from pollution rate calculated
+  var speedPurity=0;
+  var scalePurity=0;
+  if(params.polluted){
+    speedPurity=(maxPollution-params.waterPollution-50)/200;
+    scalePurity=(maxPollution-params.waterPollution-50)/250;
+    if(params.plastic){
+      speedPurity+=25/200;
+    }
+    if(params.chemical){speedPurity+=25/200;}
+
+
+
+  }else{
+    speedPurity=(maxPollution-maxPollution)/100;
+  }
+
+
+
   // make the fish swing according to the mouse direction
   //fish.rotation.y=0;
   fish.rotation.z += ((-speed.y/50)-fish.rotation.z)/smoothing;
@@ -59,13 +78,21 @@ function loop() {
   rightIris.position.x = leftIris.position.y = -10 - speed.y/2;
 
   // make it look angry when the speed increases by narrowing the eyes
-  rightEye.scale.set(1,1-(speed.x/150),1);
-  leftEye.scale.set(1,1-(speed.x/150),1);
+  rightEye.scale.set(1,1-(speed.x/200)-scalePurity,1);
+  leftEye.scale.set(1,1-(speed.x/200)-scalePurity,1);
+
+  //rightEye.scale.set(1,1-(speedPurity),1);
+  //leftEye.scale.set(1,1-(speedPurity),1);
 
   // in order to optimize, I precalculate a smaller speed values depending on speed.x
   // these variables will be used to update the wagging of the tail, the color of the fish and the scale of the fish
   var s2 = speed.x/100; // used for the wagging speed and color
   var s3 = speed.x/300; // used for the scale
+
+
+
+  //console.log(speedPurity);
+
 
   // I use an angle that I increment, and then use its cosine and sine to make the tail wag in a cyclic movement. The speed of the wagging depends on the global speed
   angleFin += s2;
@@ -79,9 +106,10 @@ function loop() {
   sideLeftFish.rotation.x = halfPI + sideFinsCycle*.2;
 
   // color update depending on the speed
-  var rvalue = (fishSlowColor.r + (fishFastColor.r - fishSlowColor.r)*s2)/255;
-  var gvalue = (fishSlowColor.g + (fishFastColor.g - fishSlowColor.g)*s2)/255;
-  var bvalue = (fishSlowColor.b + (fishFastColor.b - fishSlowColor.b)*s2)/255;
+  var rvalue = (fishSlowColor.r + (fishFastColor.r - fishSlowColor.r)*speedPurity)/255;
+  //console.log(rvalue);
+  var gvalue = (fishSlowColor.g + (fishFastColor.g - fishSlowColor.g)*speedPurity)/255;
+  var bvalue = (fishSlowColor.b + (fishFastColor.b - fishSlowColor.b)*speedPurity)/255;
   bodyFish.material.color.setRGB(rvalue,gvalue,bvalue);
   lipsFish.material.color.setRGB(rvalue,gvalue,bvalue);
 
@@ -109,10 +137,7 @@ function loop() {
   }else{
     stats.domElement.hidden=true;
   }
-  if(params.refresh){
-    params.refresh=false;
-    createFish();
-  }
+
 
   requestAnimationFrame(loop);
 }
@@ -141,13 +166,12 @@ function flyParticle(){
   setTimeout(flyParticle, params.waterPollution);
 }
 
-
-
 function getRandomColor(){
   var col = hexToRgb(colors[Math.floor(Math.random()*colors.length)]);
   var threecol = new THREE.Color("rgb("+col.r+","+col.g+","+col.b+")");
   return threecol;
 }
+
 
 function hexToRgb(hex) {
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -157,15 +181,11 @@ function hexToRgb(hex) {
     b: parseInt(result[3], 16)
   } : null;
 }
-function createFish() {
-  scene.remove(fish);
-  if(params.fishType==0){
-    createFishBasic();
-  }else if(params.fishType==1){
-    createFishPiranha();
-  }
-}
+
+
+
 function updateSpeed(){
   speed.x = (mousePos.x / WIDTH)*100;
+
   speed.y = (mousePos.y-windowHalfY) / 10;
 }

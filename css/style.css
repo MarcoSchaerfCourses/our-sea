@@ -1,0 +1,69 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:800);
+
+
+
+body{
+  margin:0;
+}
+
+#world {
+
+
+  background: rgb(47,47,48);
+  background: linear-gradient(0deg, rgba(47,47,48,1) 0%, rgba(40,40,117,1) 0%, rgba(0,148,255,1) 98%);
+  width:100%;
+  height:100%;
+  overflow:hidden;
+
+}
+#title{
+  position:absolute;
+  width:100%;
+  bottom:0%;
+  margin: auto;
+  margin-bottom: 10px;
+  font-family:'Open Sans', sans-serif;
+  color:#0094ff;
+  font-size:1.0em;
+  text-transform: uppercase;
+  text-align : center;
+
+}
+.subtitle{
+
+  color:#71b583;
+  font-size:0.3em;
+
+
+}
+.todo a{
+  color:#71b583;
+  font-size:0.6em;
+}
+.credits{
+
+  color:#73c7ff;
+  font-size:0.4em;
+
+
+}
+.credits a{
+
+  color:#73c7ff;
+  font-size:0.5em;
+
+
+}
+#range{
+  position:absolute;
+  width:100%;
+  top:0%;
+  margin: auto;
+  margin-top: 10px;
+  text-align : center;
+}
+
+.rangeslider__handle {
+  width: 42px;
+  height: 42px;
+}

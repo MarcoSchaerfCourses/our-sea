@@ -1,4 +1,8 @@
+
+//init everything for THREEJS
 function init(){
+
+
   // To work with THREEJS, you need a scene, a camera, and a renderer
 
   // create the scene;
@@ -28,13 +32,7 @@ function init(){
   if(params.debug){
     controls = new THREE.OrbitControls( camera, renderer.domElement);
   }
-  /*
-  As I will recycle the particles, I need to know the left and right limits they can fly without disappearing from the camera field of view.
-  As soon as a particle is out of the camera view, I can recycle it : remove it from the flyingParticles array and push it back in the waitingParticles array.
-  I guess I can do that by raycasting each particle each frame, but I think this will be too heavy. Instead I prefer to precalculate the x coordinate from which a particle is not visible anymore. But this depends on the z position of the particle.
-  Here I decided to use the furthest possible z position for a particle, to be sure that all the particles won't be recycled before they are out of the camera view. But this could be much more precise, by precalculating the x limit for each particle depending on its z position and store it in the particle when it is "fired". But today, I'll keep it simple :)
-  !!!!!! I'm really not sure this is the best way to do it. If you find a better solution, please tell me
-  */
+
 
   // convert the field of view to radians
   var ang = (fieldOfView/2)* Math.PI / 180;
@@ -52,12 +50,15 @@ function init(){
  // handling resize and mouse move events
   window.addEventListener('resize', onWindowResize, false);
   document.addEventListener('mousemove', handleMouseMove, false);
+
   // let's make it work on mobile too
   document.addEventListener('touchstart', handleTouchStart, false);
 	document.addEventListener('touchend', handleTouchEnd, false);
 	document.addEventListener('touchmove',handleTouchMove, false);
 }
 
+
+//used for Stats.js
 function createStats() {
 
   stats = new Stats();
@@ -78,7 +79,24 @@ function createLight() {
  	scene.add(shadowLight);
 }
 
+//FISH
+//create the different fishes
+function createFish() {
+  scene.remove(fish);
+  if(params.fishType=="normal"){
+    createFishBasic();
+  }else if(params.fishType=="piranha"){
+    createFishPiranha();
+  }else if(params.fishType=="textured"){
+    createFishTexture();
+  }else if(params.fishType=="nemo"){
+    createFishNemo();
+  }
+}
+//Normal Fish
 function createFishBasic(){
+  fishFastColor = {r:90, g:63, b:63}; // pastel blue
+  fishSlowColor = {r:0, g:192, b:213}; // purple
   // A group that will contain each part of the fish
   fish = new THREE.Group();
   // each part needs a geometry, a material, and a mesh
@@ -94,7 +112,7 @@ function createFishBasic(){
   // Tail
   var tailGeom = new THREE.CylinderGeometry(0, 60, 60, 4, false);
  	var tailMat = new THREE.MeshLambertMaterial({
-    color: 0xff00dc,
+    color: 0x053fff,
 
   });
 
@@ -116,26 +134,26 @@ function createFishBasic(){
 
   // Fins
   topFish = new THREE.Mesh(tailGeom, tailMat);
-  topFish.scale.set(.8,1,.1);
+  topFish.scale.set(1.2,1,.1);
   topFish.position.x = -20;
   topFish.position.y = 40;
   topFish.rotation.z = -halfPI;
 
   sideRightFish = new THREE.Mesh(tailGeom, tailMat);
-  sideRightFish.scale.set(.8,1,.1);
+  sideRightFish.scale.set(1.2,2,.2);
   sideRightFish.rotation.x = halfPI;
   sideRightFish.rotation.z = -halfPI;
   sideRightFish.position.x = 0;
-  sideRightFish.position.y = -50;
-  sideRightFish.position.z = -60;
+  sideRightFish.position.y = -40;
+  sideRightFish.position.z = -30;
 
   sideLeftFish = new THREE.Mesh(tailGeom, tailMat);
-  sideLeftFish.scale.set(.8,1,.1);
+  sideLeftFish.scale.set(1.2,2,.2);
   sideLeftFish.rotation.x = halfPI;
   sideLeftFish.rotation.z = -halfPI;
   sideLeftFish.position.x = 0;
-  sideLeftFish.position.y = -50;
-  sideLeftFish.position.z = 60;
+  sideLeftFish.position.y = -40;
+  sideLeftFish.position.z = 30;
 
   // Eyes
   var eyeGeom = new THREE.BoxGeometry(40, 40,5);
@@ -231,7 +249,10 @@ function createFishBasic(){
   fish.rotation.y = -Math.PI/4;
   scene.add(fish);
 }
+//Piranha Fish
 function createFishPiranha(){
+  fishFastColor = {r:90, g:63, b:63}; // pastel blue
+  fishSlowColor = {r:0, g:192, b:213}; // purple
   // A group that will contain each part of the fish
   fish = new THREE.Group();
   // each part needs a geometry, a material, and a mesh
@@ -384,27 +405,294 @@ function createFishPiranha(){
   fish.rotation.y = -Math.PI/4;
   scene.add(fish);
 }
+//Fish with a Texture of a Goldfish
+function createFishTexture(){
+  fishFastColor = {r:90, g:63, b:63}; // pastel blue
+  fishSlowColor = {r:0, g:192, b:213}; // purple
+  // A group that will contain each part of the fish
+  fish = new THREE.Group();
+  // each part needs a geometry, a material, and a mesh
 
-//Create GUI
+  // Body
+  var bodyGeom = new THREE.BoxGeometry(120, 120, 120);
+  new THREE.TextureLoader().load( 'img/texture_gold.jpg', function ( texture ) {
+					texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+					texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+					//texture.matrixAutoUpdate = false; // default true; set to false to update texture.matrix manually
+					var bodyMat = new THREE.MeshBasicMaterial( { map: texture } );
+          bodyFish = new THREE.Mesh(bodyGeom, bodyMat);
 
+          // Tail
+          var tailGeom = new THREE.CylinderGeometry(0, 60, 60, 4, false);
+          var tailMat = new THREE.MeshLambertMaterial({
+            color: 0x80f5fe ,
+
+          });
+
+          tailFish = new THREE.Mesh(tailGeom, tailMat);
+          tailFish.scale.set(.8,1,.1);
+          tailFish.position.x = -60;
+          tailFish.rotation.z = -halfPI;
+
+
+
+          // Fins
+          topFish = new THREE.Mesh(tailGeom, tailMat);
+          topFish.scale.set(.8,1,.1);
+          topFish.position.x = -20;
+          topFish.position.y = 60;
+          topFish.rotation.z = -halfPI;
+
+          sideRightFish = new THREE.Mesh(tailGeom, tailMat);
+          sideRightFish.scale.set(.8,1,.1);
+          sideRightFish.rotation.x = halfPI;
+          sideRightFish.rotation.z = -halfPI;
+          sideRightFish.position.x = 0;
+          sideRightFish.position.y = -50;
+          sideRightFish.position.z = -60;
+
+          sideLeftFish = new THREE.Mesh(tailGeom, tailMat);
+          sideLeftFish.scale.set(.8,1,.1);
+          sideLeftFish.rotation.x = halfPI;
+          sideLeftFish.rotation.z = -halfPI;
+          sideLeftFish.position.x = 0;
+          sideLeftFish.position.y = -50;
+          sideLeftFish.position.z = 60;
+
+          // Eyes
+          var eyeGeom = new THREE.BoxGeometry(40, 40,5);
+          var eyeMat = new THREE.MeshLambertMaterial({
+            color: 0xffffff,
+
+          });
+
+          rightEye = new THREE.Mesh(eyeGeom,eyeMat );
+          rightEye.position.z = -60;
+          rightEye.position.x = 25;
+          rightEye.position.y = -10;
+
+          var irisGeom = new THREE.BoxGeometry(10, 10,3);
+          var irisMat = new THREE.MeshLambertMaterial({
+            color: 0x330000,
+
+          });
+
+          rightIris = new THREE.Mesh(irisGeom,irisMat );
+          rightIris.position.z = -65;
+          rightIris.position.x = 35;
+          rightIris.position.y = -10;
+
+          leftEye = new THREE.Mesh(eyeGeom,eyeMat );
+          leftEye.position.z = 60;
+          leftEye.position.x = 25;
+          leftEye.position.y = -10;
+
+          leftIris = new THREE.Mesh(irisGeom,irisMat );
+          leftIris.position.z = 65;
+          leftIris.position.x = 35;
+          leftIris.position.y = -10;
+
+
+
+
+
+          fish.add(bodyFish);
+          fish.add(tailFish);
+          fish.add(topFish);
+          fish.add(sideRightFish);
+          fish.add(sideLeftFish);
+          fish.add(rightEye);
+          fish.add(rightIris);
+          fish.add(leftEye);
+          fish.add(leftIris);
+
+
+          //fish.rotation.y = -Math.PI/4;
+          scene.add(fish);
+
+
+
+
+
+
+
+
+
+				} );
+
+}
+//fedebyes Fish
+function createFishNemo(){
+
+  fishFastColor = {r:98, g:70, b:60}; // pastel blue
+  fishSlowColor = {r:255, g:60, b:1}; // purple
+  // A group that will contain each part of the fish
+  fish = new THREE.Group();
+  // each part needs a geometry, a material, and a mesh
+
+  // Body
+  var bodyGeom = new THREE.BoxGeometry(200, 150, 100);
+ 	var bodyMat = new THREE.MeshLambertMaterial({
+    color: 0xff3c01 ,
+
+  });
+  bodyFish = new THREE.Mesh(bodyGeom, bodyMat);
+
+
+  //spot1
+  var spotGeom = new THREE.BoxGeometry(20, 151, 101);
+  var spotMat = new THREE.MeshLambertMaterial({
+    color: 0xffffff ,
+
+  });
+  spot1 = new THREE.Mesh(spotGeom,spotMat);
+  spot2 = new THREE.Mesh(spotGeom,spotMat);
+  spot2.position.x=-50;
+
+
+  // Tail
+  var tailGeom = new THREE.CylinderGeometry(0, 60, 60, 4, false);
+ 	var tailMat = new THREE.MeshLambertMaterial({
+    color: 0xff3c01 ,
+
+  });
+
+  tailFish = new THREE.Mesh(tailGeom, tailMat);
+  tailFish.scale.set(1,2,0.3);
+  tailFish.position.x = -130;
+  tailFish.rotation.z = -halfPI;
+
+  // Lips
+  var lipsGeom = new THREE.BoxGeometry(25, 10, 120);
+  var lipsMat = new THREE.MeshLambertMaterial({
+    color: 0xff3c01 ,
+
+  });
+  lipsFish = new THREE.Mesh(lipsGeom, lipsMat);
+  lipsFish.position.x = 65;
+  lipsFish.position.y = -47;
+  lipsFish.rotation.z = halfPI;
+
+  // Fins
+  topFish = new THREE.Mesh(tailGeom, tailMat);
+  topFish.scale.set(1,1,.3);
+  topFish.position.x = 40;
+  topFish.position.y = 80;
+  topFish.rotation.z = -halfPI;
+
+
+  //second top
+  topFish2 = new THREE.Mesh(tailGeom, tailMat);
+  topFish2.scale.set(1,1,.3);
+  topFish2.position.x = -20;
+  topFish2.position.y = 80;
+  topFish2.rotation.z = -halfPI;
+
+  sideRightFish = new THREE.Mesh(tailGeom, tailMat);
+  sideRightFish.scale.set(1.2,2,.2);
+  sideRightFish.rotation.x = halfPI;
+  sideRightFish.rotation.z = -halfPI;
+  sideRightFish.position.x = 0;
+  sideRightFish.position.y = -40;
+  sideRightFish.position.z = -30;
+
+  sideLeftFish = new THREE.Mesh(tailGeom, tailMat);
+  sideLeftFish.scale.set(1.2,2,.2);
+  sideLeftFish.rotation.x = halfPI;
+  sideLeftFish.rotation.z = -halfPI;
+  sideLeftFish.position.x = 0;
+  sideLeftFish.position.y = -40;
+  sideLeftFish.position.z = 30;
+
+  // Eyes
+  var eyeGeom = new THREE.BoxGeometry(60, 100,5);
+  var eyeMat = new THREE.MeshLambertMaterial({
+    color: 0xffffff,
+
+  });
+
+  rightEye = new THREE.Mesh(eyeGeom,eyeMat );
+  rightEye.position.z = -60;
+  rightEye.position.x = 30;
+  rightEye.position.y = -10;
+
+  var irisGeom = new THREE.BoxGeometry(30, 30,2);
+  var irisMat = new THREE.MeshLambertMaterial({
+    color: 0x330000,
+
+  });
+
+  rightIris = new THREE.Mesh(irisGeom,irisMat );
+  rightIris.position.z = -65;
+  rightIris.position.x = 10;
+  rightIris.position.y = -10;
+
+  leftEye = new THREE.Mesh(eyeGeom,eyeMat );
+  leftEye.position.z = 60;
+  leftEye.position.x = 55;
+  leftEye.position.y = -10;
+
+  leftIris = new THREE.Mesh(irisGeom,irisMat );
+  leftIris.position.z = 65;
+  leftIris.position.x = 65;
+  leftIris.position.y = -10;
+
+  var toothGeom = new THREE.BoxGeometry(20, 4, 20);
+  var toothMat = new THREE.MeshLambertMaterial({
+    color: 0xffffff,
+
+  });
+
+
+
+
+  fish.add(bodyFish);
+  fish.add(tailFish);
+  fish.add(topFish);
+  fish.add(sideRightFish);
+  fish.add(sideLeftFish);
+  fish.add(rightEye);
+  fish.add(rightIris);
+  fish.add(leftEye);
+  fish.add(leftIris);
+  fish.add(spot1);
+  fish.add(spot2);
+  //fish.add(topFish2);
+  /*fish.add(tooth1);
+  fish.add(tooth2);
+  fish.add(tooth3);
+  fish.add(tooth4);
+  fish.add(tooth5);
+  fish.add(lipsFish);*/
+
+  fish.rotation.y = -Math.PI/4;
+  scene.add(fish);
+}
+
+
+//Create GUI from dat-GUI.js
 function createGUI(){
 
 
   gui= new dat.GUI();
-  gui.add(params,"debug");
-  gui.add(params,"fishType",0,1).step(1).onChange(function(){
+  var f1=gui.addFolder("Debug");
+  f1.add(params,"debug");
+  var f2=gui.addFolder("Fish");
+  f2.add(params,"fishType",fishTypes).onChange(function(){
     createFish();
     //params.refresh=true;
   }
 
   );
-  gui.add(params,"waterPollution").min(1).max(200).name("Water Purity");
-  gui.add(params,"polluted");
-  gui.add(params,"plastic");
+  var f3=gui.addFolder("Pollution");
+  f3.add(params,"waterPollution").min(minPollution).max(maxPollution).name("Water Purity");
+  f3.add(params,"polluted");
+  f3.add(params,"plastic");
   //gui.add(params,"dirt");
-  gui.add(params,"chemical");
+  f3.add(params,"chemical");
 
   //gui.add(params,"refresh");
+  //f3.open();
 
 }
 
