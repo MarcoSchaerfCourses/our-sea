@@ -106,4 +106,6 @@ createParticle();
 loop();
 
 setTimeout(flyParticle, params.waterPollution)
+setTimeout(flyParticle, params.waterPollution)
+//setTimeout(flyParticle, params.waterPollution)
 //setInterval(flyParticle, 10); // launch a new particle every 70ms
