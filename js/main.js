@@ -87,9 +87,6 @@ var params={
   polluted:false,
   plastic: false,
   chemical: false,
-
-
-
 }
 
 // depending if there is particles stored in the waintingParticles array, get one from there or create a new one
