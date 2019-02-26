@@ -126,7 +126,7 @@ function loop() {
     particle.position.y += (1/particle.scale.x) * speed.y *.2;
     if (particle.position.x < -xLimit - 80){ // check if the particle is out of the field of view
       scene.remove(particle);
-      waitingParticles.push(flyingParticles.splice(i,1)[0]); // recycle the particle
+      //waitingParticles.push(flyingParticles.splice(i,1)[0]); // recycle the particle
       i--;
     }
   }

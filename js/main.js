@@ -67,7 +67,7 @@ var colors = ['#dff69e',
 var flyingParticles = [];
 		waitingParticles = [];
 // maximum z position for a particle
-		maxParticlesZ = 600;
+		maxParticlesZ = 800;
 
 // SPEED
 var speed = {x:0, y:0};
