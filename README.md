@@ -29,8 +29,8 @@ Also in the project were used different libraries of Javascript here is the comp
 ## Techical Aspects
 
 
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png )
-Screenshot_20190226_185740.png
+![alt text](https://github.com/MarcoSchaerfCourses/final-project-for-interactive-graphics-course-fedebyes/blob/master/Report%20interactive%20graphics/Screenshot_20190226_185740.png)
+
 
 The HTML file contains just the title and the Javascript libraries that we have listed plus the files that we have created for the project
 
@@ -38,8 +38,7 @@ The HTML file contains just the title and the Javascript libraries that we have 
 
 
 ## CSS
-
-Screenshot_20190226_190022.png
+![alt text](https://github.com/MarcoSchaerfCourses/final-project-for-interactive-graphics-course-fedebyes/blob/master/Report%20interactive%20graphics/Screenshot_20190226_190022.png)
 
 In the file style.css are contained just the information for the background and the title styling
 
@@ -50,15 +49,13 @@ The Javascript code is divided in 3 files
 - loader.js
 - logic.js
 - main.js
-
-Screenshot_20190226_190629.png
+![alt text](https://github.com/MarcoSchaerfCourses/final-project-for-interactive-graphics-course-fedebyes/blob/master/Report%20interactive%20graphics/Screenshot_20190226_190629.png)
 
 In this file all variables are defined, including scene, camera, container and renderer.
 After that custom variables are defined like colors and speed.
 
 
-
-Screenshot_20190226_191007.png
+![alt text](https://github.com/MarcoSchaerfCourses/final-project-for-interactive-graphics-course-fedebyes/blob/master/Report%20interactive%20graphics/Screenshot_20190226_191007.png)
 
 
 The javascript function of this file are necessary to load the Environment.
@@ -86,7 +83,7 @@ The javascript function of this file are necessary to load the Environment.
 
 
 ### logic.js
-Screenshot_20190226_192414.png
+![alt text](https://github.com/MarcoSchaerfCourses/final-project-for-interactive-graphics-course-fedebyes/blob/master/Report%20interactive%20graphics/Screenshot_20190226_192414.png)
 
 This was the most difficult part of the project with countless of mathematical function to operate all the animations.
 
@@ -121,18 +118,16 @@ This was the most difficult part of the project with countless of mathematical f
 
 ### Scene
 
-Screenshot_20190226_195128.png
+![alt text](https://github.com/MarcoSchaerfCourses/final-project-for-interactive-graphics-course-fedebyes/blob/master/Report%20interactive%20graphics/Screenshot_20190226_195128.png)
 
 The scene is nothing more than a background with two lights added, a HemispereLight and a DirectionalLight.
 
 ### Particles
 
-
-Screenshot_20190226_200304.png
-Screenshot_20190226_200209.png
-
-Screenshot_20190226_200345.png
-Screenshot_20190226_200422.png
+![alt text](https://github.com/MarcoSchaerfCourses/final-project-for-interactive-graphics-course-fedebyes/blob/master/Report%20interactive%20graphics/Screenshot_20190226_200304.png)
+![alt text](https://github.com/MarcoSchaerfCourses/final-project-for-interactive-graphics-course-fedebyes/blob/master/Report%20interactive%20graphics/Screenshot_20190226_200209.png)
+![alt text](https://github.com/MarcoSchaerfCourses/final-project-for-interactive-graphics-course-fedebyes/blob/master/Report%20interactive%20graphics/Screenshot_20190226_200345.png)
+![alt text](https://github.com/MarcoSchaerfCourses/final-project-for-interactive-graphics-course-fedebyes/blob/master/Report%20interactive%20graphics/Screenshot_20190226_200422.png)
 
 These are the different particles that float into the sea, if it is not polluted and the Water Purity is high there are just oxygen bubbles, but if it is polluted the plastic, dirt and chemical partiles start to float around.
 
@@ -141,13 +136,11 @@ These are the different particles that float into the sea, if it is not polluted
 
 ### Fish
 
+![alt text](https://github.com/MarcoSchaerfCourses/final-project-for-interactive-graphics-course-fedebyes/blob/master/Report%20interactive%20graphics/Screenshot_20190226_200844.png)
+![alt text](https://github.com/MarcoSchaerfCourses/final-project-for-interactive-graphics-course-fedebyes/blob/master/Report%20interactive%20graphics/Screenshot_20190226_200918.png)
 
-Screenshot_20190226_200844.png
-Screenshot_20190226_200918.png
-
-
-Screenshot_20190226_201004.png
-Screenshot_20190226_201047.png
+![alt text](https://github.com/MarcoSchaerfCourses/final-project-for-interactive-graphics-course-fedebyes/blob/master/Report%20interactive%20graphics/Screenshot_20190226_201004.png)
+![alt text](https://github.com/MarcoSchaerfCourses/final-project-for-interactive-graphics-course-fedebyes/blob/master/Report%20interactive%20graphics/Screenshot_20190226_201047.png)
 
 There are four different types of fish and each one of them interact differently with the colors and the pollution of the water.
 
@@ -163,8 +156,7 @@ Every fish is different but in general they are composed by
 - **Iris**  two BoxGeometry with a MeshLambertMaterial
 
 
-
-Screenshot_20190226_203131.png
+![alt text](https://github.com/MarcoSchaerfCourses/final-project-for-interactive-graphics-course-fedebyes/blob/master/Report%20interactive%20graphics/Screenshot_20190226_203131.png)
 
 
 
@@ -172,16 +164,14 @@ Screenshot_20190226_203131.png
 The main part of the project is the interaction, the user can move the mouse (or thouch on the smartphone) on the left or right and the fish will swim slower or faster respectively, scaling the parts and the body to simulate the movement.
 
 
-
-Screenshot_20190226_202521.png
-Screenshot_20190226_202616.png
+![alt text](https://github.com/MarcoSchaerfCourses/final-project-for-interactive-graphics-course-fedebyes/blob/master/Report%20interactive%20graphics/Screenshot_20190226_202521.png)
+![alt text](https://github.com/MarcoSchaerfCourses/final-project-for-interactive-graphics-course-fedebyes/blob/master/Report%20interactive%20graphics/Screenshot_20190226_202616.png)
 
 Depending on the pollution the fish could be sane and sick, changing color.
 
 
-
-Screenshot_20190226_202824.png
-Screenshot_20190226_202756.png
+![alt text](https://github.com/MarcoSchaerfCourses/final-project-for-interactive-graphics-course-fedebyes/blob/master/Report%20interactive%20graphics/Screenshot_20190226_202824.png)
+![alt text](https://github.com/MarcoSchaerfCourses/final-project-for-interactive-graphics-course-fedebyes/blob/master/Report%20interactive%20graphics/Screenshot_20190226_202756.png)
 
 In the end the fish also can be moved with the mouse and the eyes will follow it using the different functions.
 
@@ -195,3 +185,8 @@ I've decided to call this project Our Sea to make people aware of the impact of 
 
 
 We forget that water cycle and life cycle are one
+
+
+Thanks to
+- (https://codepen.io/Yakudoo/pen/BNNGBq)
+- (https://github.com/mrdoob/three.js/)
