@@ -8,7 +8,7 @@ function onWindowResize() {
   camera.updateProjectionMatrix(); // force the camera to update its aspect ratio
   // recalculate the limits
  	var ang = (fieldOfView/2)* Math.PI / 180;
-  yLimit = (camera.position.z + maxPartcilesZ) * Math.tan(ang);
+  yLimit = (camera.position.z + maxParticlesZ) * Math.tan(ang);
   xLimit = yLimit *camera.aspect;
 }
 
@@ -126,6 +126,7 @@ function loop() {
     particle.position.y += (1/particle.scale.x) * speed.y *.2;
     if (particle.position.x < -xLimit - 80){ // check if the particle is out of the field of view
       scene.remove(particle);
+      flyingParticles.splice(i,1)[0];
       //waitingParticles.push(flyingParticles.splice(i,1)[0]); // recycle the particle
       i--;
     }

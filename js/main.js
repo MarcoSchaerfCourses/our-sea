@@ -83,7 +83,7 @@ var params={
   fishType: "nemo",
   refresh: false,
   debug: false,
-  waterPollution: 70,
+  waterPollution: 20,
   polluted:false,
   plastic: false,
   chemical: false,
