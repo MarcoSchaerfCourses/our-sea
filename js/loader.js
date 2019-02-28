@@ -677,6 +677,7 @@ function createGUI(){
   gui= new dat.GUI();
   var f1=gui.addFolder("Debug");
   f1.add(params,"debug");
+  f1.add(params,"alot");
   var f2=gui.addFolder("Fish");
   f2.add(params,"fishType",fishTypes).onChange(function(){
     createFish();

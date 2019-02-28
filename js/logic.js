@@ -139,7 +139,11 @@ function loop() {
     stats.domElement.hidden=true;
   }
 
-
+  if(params.alot){
+    for(var i=0; i<100;i++){
+      setTimeout(flyParticle, params.waterPollution)
+    }
+  }
   requestAnimationFrame(loop);
 }
 
